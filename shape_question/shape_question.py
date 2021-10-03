@@ -1,5 +1,6 @@
 import random
 import copy
+from typing import List
 
 class ShapeInfo:
 	small: str = ''
@@ -36,7 +37,7 @@ def create_question(question_cnt):
 		test_shape: ShapeInfo = ShapeInfo(*random.choices(SHAPE_CONST, k = 2))
 
 	for type in trans_types:
-		tmp = trans_shape(copy.copy(test_shape), type)
+		tmp = trans_shape(test_shape, type)
 		transed_test_shapes.append(tmp)
 
 
@@ -60,7 +61,7 @@ def create_question(question_cnt):
 
 
 def trans_shape(shape: ShapeInfo, type: int):
-	_shape: ShapeInfo = shape
+	_shape: ShapeInfo = copy.copy(shape)
 
 	if type == 1:
 		_shape.small = ''
