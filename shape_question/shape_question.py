@@ -4,20 +4,29 @@ from typing import List
 from shape_info import ShapeInfo
 
 def create_question(question_cnt):
-	trans_types: List[int] = random.sample(list(range(1, 10, 1)), question_cnt)
-	ans: int = random.randrange(question_cnt)
-	ans_trans_type: int = trans_types[ans]
+	trans_types = []
+	ans: int = 0
+	ans_trans_type = []
 	example_shape: ShapeInfo = ShapeInfo()
 	test_shape: ShapeInfo = ShapeInfo()
 	transed_test_shapes = []
 
-	while example_shape.is_same(test_shape):
-		test_shape.re_generate()
+	while(dup_check(transed_test_shapes)):
+		trans_types: List[int] = random.sample(list(range(1, 10, 1)), question_cnt)
+		# 答え生成
+		ans: int = random.randrange(question_cnt)
+		ans_trans_type: int = trans_types[ans]
+		# 例と問題生成
+		example_shape: ShapeInfo = ShapeInfo()
+		test_shape: ShapeInfo = ShapeInfo()
+		transed_test_shapes = []
 
-	for type in trans_types:
-		tmp = trans_shape(test_shape, type)
-		transed_test_shapes.append(tmp)
+		while example_shape.is_same(test_shape):
+			test_shape.re_generate()
 
+		for type in trans_types:
+			tmp = trans_shape(test_shape, type)
+			transed_test_shapes.append(tmp)
 
 	print('=======================start=======================')
 	print('例と同じ変換規則を適用すると0,...,4のどれになるか直感的に考えよ.')
@@ -33,10 +42,6 @@ def create_question(question_cnt):
 			print('正解です!')
 			break
 		print('不正解です\n\n')
-
-
-
-
 
 def trans_shape(shape: ShapeInfo, type: int):
 	_shape: ShapeInfo = copy.copy(shape)
@@ -63,3 +68,12 @@ def trans_shape(shape: ShapeInfo, type: int):
 		_shape.large = 'STAR'
 
 	return _shape
+
+def dup_check(shapes: List) -> bool:
+	if not shapes:
+		return True
+	for shape1 in shapes:
+		for shape2 in shapes:
+			if shape1 != shape2 and shape1.is_same(shape2):
+				return True
+	return False
