@@ -24,4 +24,4 @@ class ShapeInfo:
 		elif self.small == '':
 			return '\033[31m' + 'l' + self.large + '\033[0m'
 		else:
-			return '\033[31m' + 's' + self.large + '\033[0m' + ' is out of ' + '\033[31m' + 'l' + self.small + '\033[0m'
+			return '\033[31m' + 's' + self.large + '\033[0m' + ' is in ' + '\033[31m' + 'l' + self.small + '\033[0m'

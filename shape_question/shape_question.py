@@ -11,7 +11,7 @@ def create_question(question_cnt):
 	test_shape: ShapeInfo = ShapeInfo()
 	transed_test_shapes = []
 
-	while(dup_check(transed_test_shapes)):
+	while(not transed_test_shapes or dup_check(transed_test_shapes)):
 		trans_types: List[int] = random.sample(list(range(1, 10, 1)), question_cnt)
 		# 答え生成
 		ans: int = random.randrange(question_cnt)
@@ -70,8 +70,6 @@ def trans_shape(shape: ShapeInfo, type: int):
 	return _shape
 
 def dup_check(shapes: List) -> bool:
-	if not shapes:
-		return True
 	for shape1 in shapes:
 		for shape2 in shapes:
 			if shape1 != shape2 and shape1.is_same(shape2):
